@@ -12,9 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.Assertions.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class Gritto4ApplicationTests {
+public class Gritto4ApplicationTests extends DefaultSpringBootRunnerTest {
 
 	@Autowired
 	ModelMapper mapper;
