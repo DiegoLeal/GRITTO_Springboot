@@ -40,4 +40,10 @@ public class Publicacao implements Model {
   @Size(max = 45, message = "")
   private String complemento;
 
+@Override
+public Long getId() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }
