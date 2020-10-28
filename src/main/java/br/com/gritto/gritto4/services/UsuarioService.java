@@ -24,8 +24,6 @@ public class UsuarioService {
 	public Usuario findById(Long id) {
 		Optional<Usuario> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(id));
-		
-		
 	}
 	
 	public Usuario insert(Usuario obj) {
@@ -55,6 +53,16 @@ public class UsuarioService {
 	}
 
 	public Usuario fromDTO(UsuarioDTO objDto) {
-		return new Usuario(objDto.getId(), objDto.getNome(), objDto.getRg(), objDto.getCpf(), objDto.getDataNascimento(), objDto.getTelefone(), objDto.getSenha(), objDto.getEmail(), objDto.getSexo());
+		return Usuario.builder()
+						.id(objDto.getId())
+						.nome(objDto.getNome())
+						.rg(objDto.getRg())
+						.cpf(objDto.getCpf())
+						.dataNascimento(objDto.getDataNascimento())
+						.telefone(objDto.getTelefone())
+						.senha(objDto.getSenha())
+						.email(objDto.getEmail())
+						.sexo(objDto.getSexo())
+						.build();
 	}
 }
