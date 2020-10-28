@@ -30,4 +30,10 @@ public class Agenda implements Model {
   private String historico;
 
   private LocalTime hora;
+
+@Override
+public Long getId() {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

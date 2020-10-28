@@ -1,55 +1,151 @@
 package br.com.gritto.gritto4.domain;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import lombok.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
+import org.hibernate.validator.constraints.br.CPF;
+
 
 @Entity
-@Table(name = "usuarios")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@Builder
-public class Usuario implements Serializable {
-  private static final long serialVersionUID = 1L;
+public class Usuario {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@NotBlank
+	@Size(max = 60)
+	private String nome;	
+	
+	@NotBlank
+	@Size(max = 20)
+	private String rg;
+	
+	@NotBlank
+	@CPF
+	@Size(max = 14)
+	private String cpf;
+	
+	@NotBlank
+	@Size(max = 10)
+	private String dataNascimento;
+	
+	@NotBlank
+	@Size(max = 20)
+	private String telefone;
+	
+	@NotBlank
+	@Size(max = 60)
+	private String senha;
+	
+	@NotBlank
+	@Email
+	@Size(max = 255)
+	private String email;
+	
+	@NotBlank
+	@Size(max = 1)
+	private String sexo;	 
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+	public Long getId() {
+		return id;
+	}
 
-  @Column(name = "nome")
-  private String nome;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-  @Column(name = "rg")
-  private String rg;
+	public String getNome() {
+		return nome;
+	}
 
-  @Column(name = "cpf")
-  private String cpf;
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-  @Column(name = "dataNascimento")
-  private String dataNascimento;
+	public String getRg() {
+		return rg;
+	}
 
-  @Column(name = "telefone")
-  private String telefone;
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
 
-  @Column(name = "senha")
-  private String senha;
+	public String getCpf() {
+		return cpf;
+	}
 
-  @Column(name = "email")
-  private String email;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
-  @Column(name = "sexo")
-  private String sexo;
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-  @JsonIdentityReference
-  private List<Publicacao> publicacao;
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 
+	public String getTelefone() {
+		return telefone;
+	}
 
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }

@@ -1,68 +1,82 @@
 package br.com.gritto.gritto4.resources;
 
-import br.com.gritto.gritto4.domain.Usuario;
-import br.com.gritto.gritto4.dto.UsuarioDTO;
-import br.com.gritto.gritto4.services.UsuarioService;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:3000")
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.gritto.gritto4.domain.Usuario;
+import br.com.gritto.gritto4.repository.UsuarioRepository;
+import br.com.gritto.gritto4.services.UsuarioService;
+
 @RestController
 @RequestMapping("/usuarios")
-@RequiredArgsConstructor
 public class UsuarioResource {
-
-  private final UsuarioService service;
-  private final ModelMapper mapper;
-
-  @RequestMapping(method = RequestMethod.GET)
-  public ResponseEntity<List<Usuario>> findAll() {
-    List<Usuario> usuarioList = service.findAll();
-    return ResponseEntity.ok().body(usuarioList);
-  }
-
-  @RequestMapping(value = "/usuarios/{id}", method = RequestMethod.GET)
-  public ResponseEntity<UsuarioDTO> finBayId(@PathVariable Long id) {
-    Usuario usuario = service.findById(id);
-    UsuarioDTO usuarioDTO = mapper.map(usuario, UsuarioDTO.class);
-    return ResponseEntity.ok().body(usuarioDTO);
-  }
-
-  @RequestMapping(method = RequestMethod.POST)
-  public ResponseEntity<Void> insert(@RequestBody UsuarioDTO objDTO) {
-    Usuario obj = service.fromDTO(objDTO);
-    obj = service.insert(obj);
-    URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-    return ResponseEntity.created(uri).build();
-  }
-
-  @RequestMapping(value = "/usuarios/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Void> delete(@PathVariable Long id) {
-    service.delete(id);
-    return ResponseEntity.noContent().build();
-  }
-
-  @RequestMapping(value = "/usuarios/{id}", method = RequestMethod.PUT)
-  public ResponseEntity<Void> update(@RequestBody UsuarioDTO objDto, @PathVariable Long id) {
-    Usuario obj = service.fromDTO(objDto);
-    obj.setId(id);
-    obj = service.update(obj);
-    return ResponseEntity.noContent().build();
-  }
 	
-	/*@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Usuario>> findAll() {
-		List<Usuario> list = new ArrayList<>();
-		Usuario vitoria = new Usuario("1", "Vitória Silveira", "22.610.093-5", "699.620.573-53", new Date(1966-06-14), "(95) 99245-1738", "3Z0oLGgMiH", "vitoriasilveira@skapcom.com", "F");
-		Usuario vicente = new Usuario("2", "Vicente Santos", "25.791.644-1", "573.849.058-42", new Date(1969-01-17), "(16) 98262-7375", "rRTDKtCOP3", "vicentesantos@gmail.com", "M");
-		list.addAll(Arrays.asList(vitoria, vicente));
-		return ResponseEntity.ok().body(list);	
-   }*/
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private UsuarioService cadastroUsuario;	
+	
+	@GetMapping
+	public List<Usuario> listar() {
+		return usuarioRepository.findAll();
+	}
+	
+	@GetMapping("{usuarioId}")
+	public ResponseEntity<Usuario> buscar (@PathVariable Long usuarioId) {
+		Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
+		
+		if (usuario.isPresent()) {
+			return ResponseEntity.ok(usuario.get());
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	public Usuario adicionar(@Valid @RequestBody Usuario usuario) throws Exception {
+		return cadastroUsuario.salvar(usuario);
+	}
+	
+	@PutMapping("/{usuarioId}")
+	public ResponseEntity<Usuario> Atualizar(@Valid @PathVariable Long usuarioId,
+			@RequestBody Usuario usuario) throws Exception {
+		
+		if (!usuarioRepository.existsById(usuarioId)) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		usuario.setId(usuarioId);
+		usuario = cadastroUsuario.salvar(usuario);
+		
+		return ResponseEntity.ok(usuario);
+	}
+	
+	@DeleteMapping("/{usuarioId}")
+	public ResponseEntity<Void> remover(@PathVariable Long usuarioId) {
+		if (!usuarioRepository.existsById(usuarioId)) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		cadastroUsuario.excluir(usuarioId);
+		
+		return ResponseEntity.noContent().build();
+	}
 
-}	
+}
