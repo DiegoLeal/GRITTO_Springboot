@@ -1,5 +1,6 @@
 package br.com.gritto.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,10 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/agenda")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AgendaController {
 
-  private final AgendaService service = new AgendaService();
+  private AgendaService service;
 
   @PutMapping
   public ResponseEntity<Agenda> save(@RequestBody Agenda agenda) {

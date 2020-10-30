@@ -1,5 +1,7 @@
 package br.com.gritto.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +12,8 @@ import br.com.gritto.domain.model.Model;
 public class DefaultService<R extends JpaRepository<E, Long>, E extends Model> {
 
   @Autowired
+  @Getter
+  @Setter
   private R repository;
 
   public E save(E entity) {
