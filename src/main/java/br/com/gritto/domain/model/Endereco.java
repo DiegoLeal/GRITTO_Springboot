@@ -27,4 +27,10 @@ public class Endereco implements Model {
   @ManyToOne
   private Bairro bairro;
 
+@Override
+public Long getId() {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }
