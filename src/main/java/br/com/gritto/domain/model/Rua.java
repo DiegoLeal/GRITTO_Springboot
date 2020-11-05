@@ -21,10 +21,4 @@ public class Rua implements Model {
 
   private String nome;
 
-@Override
-public Long getId() {
-	// TODO Auto-generated method stub
-	return null;
-}
-
 }

@@ -16,18 +16,10 @@ import javax.persistence.Id;
 @Builder
 public class Bairro implements Model {
 
-	private static final long serialVersionUID = 1L;
-
-@Id
+  @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String nomeBairro;
-
-@Override
-public Long getId() {
-	// TODO Auto-generated method stub
-	return null;
-}
 
 }

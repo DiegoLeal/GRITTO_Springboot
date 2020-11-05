@@ -21,10 +21,4 @@ public class Cidade implements Model{
   @ManyToOne
   private UniaoFederativa uf;
 
-@Override
-public Long getId() {
-	// TODO Auto-generated method stub
-	return null;
-}
-
 }

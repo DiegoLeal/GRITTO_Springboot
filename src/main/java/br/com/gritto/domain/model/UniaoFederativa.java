@@ -15,18 +15,10 @@ import javax.persistence.Id;
 @Builder
 public class UniaoFederativa implements Model {
 
-	private static final long serialVersionUID = 1L;
-
-@Id
+  @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String nome;
-
-@Override
-public Long getId() {
-	// TODO Auto-generated method stub
-	return null;
-}
 
 }

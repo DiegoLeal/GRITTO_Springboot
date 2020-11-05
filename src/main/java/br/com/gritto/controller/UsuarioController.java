@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.gritto.domain.model.Usuario;
 import br.com.gritto.domain.repository.UsuarioRepository;
 import br.com.gritto.domain.service.UsuarioService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/usuarios")
-@Api(value = "API REST Usuarios")
-@CrossOrigin(origins = "*")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 	
 	@Autowired
@@ -38,13 +33,11 @@ public class UsuarioController {
 	private UsuarioService cadastroUsuario;	
 	
 	@GetMapping
-	@ApiOperation(value = "Retorna uma lista de usuarios")
 	public List<Usuario> listar() {
 		return usuarioRepository.findAll();
 	}
 	
 	@GetMapping("{usuarioId}")
-	@ApiOperation(value = "Retorna um usuario")
 	public ResponseEntity<Usuario> buscar (@PathVariable Long usuarioId) {
 		Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
 		
@@ -56,14 +49,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "Salva um usuario")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario adicionar(@Valid @RequestBody Usuario usuario) throws Exception {
 		return cadastroUsuario.salvar(usuario);
 	}
 	
 	@PutMapping("/{usuarioId}")
-	@ApiOperation(value = "Atualiza um usuario")
 	public ResponseEntity<Usuario> Atualizar(@Valid @PathVariable Long usuarioId,
 			@RequestBody Usuario usuario) throws Exception {
 		
@@ -78,7 +69,6 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping("/{usuarioId}")
-	@ApiOperation(value = "Deleta um usuario")
 	public ResponseEntity<Void> remover(@PathVariable Long usuarioId) {
 		if (!usuarioRepository.existsById(usuarioId)) {
 			return ResponseEntity.notFound().build();
