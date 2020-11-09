@@ -3,6 +3,7 @@ package br.com.gritto.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,12 @@ import br.com.gritto.domain.model.Usuario;
 import br.com.gritto.domain.repository.UsuarioRepository;
 import br.com.gritto.domain.service.UsuarioService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 
+@CrossOrigin(origins ="*")
 @RestController
-@RequestMapping(value="/usuarios")
-@Api(value = "API REST Usuarios")
-@CrossOrigin(origins = "*")
+@RequestMapping("/usuarios")
+@Api(value="API REST Usuarios")
+@Resource
 public class UsuarioController {
 	
 	@Autowired
@@ -38,13 +39,11 @@ public class UsuarioController {
 	private UsuarioService cadastroUsuario;	
 	
 	@GetMapping
-	@ApiOperation(value = "Retorna uma lista de usuarios")
 	public List<Usuario> listar() {
 		return usuarioRepository.findAll();
 	}
 	
 	@GetMapping("{usuarioId}")
-	@ApiOperation(value = "Retorna um usuario")
 	public ResponseEntity<Usuario> buscar (@PathVariable Long usuarioId) {
 		Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
 		
@@ -56,14 +55,12 @@ public class UsuarioController {
 	}
 	
 	@PostMapping
-	@ApiOperation(value = "Salva um usuario")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Usuario adicionar(@Valid @RequestBody Usuario usuario) throws Exception {
 		return cadastroUsuario.salvar(usuario);
 	}
 	
 	@PutMapping("/{usuarioId}")
-	@ApiOperation(value = "Atualiza um usuario")
 	public ResponseEntity<Usuario> Atualizar(@Valid @PathVariable Long usuarioId,
 			@RequestBody Usuario usuario) throws Exception {
 		
@@ -78,7 +75,6 @@ public class UsuarioController {
 	}
 	
 	@DeleteMapping("/{usuarioId}")
-	@ApiOperation(value = "Deleta um usuario")
 	public ResponseEntity<Void> remover(@PathVariable Long usuarioId) {
 		if (!usuarioRepository.existsById(usuarioId)) {
 			return ResponseEntity.notFound().build();

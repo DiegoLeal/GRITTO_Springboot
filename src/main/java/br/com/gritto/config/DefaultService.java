@@ -13,7 +13,6 @@ public class DefaultService<R extends JpaRepository<E, Long>, E extends Model> {
 
   @Autowired
   @Getter
-  @Setter
   private R repository;
 
   public E save(E entity) {
