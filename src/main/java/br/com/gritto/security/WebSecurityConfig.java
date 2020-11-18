@@ -19,11 +19,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/usuarios").permitAll()
-			.antMatchers(HttpMethod.POST, "/usuarios").permitAll()
-			.antMatchers(HttpMethod.GET, "/usuarios/{usuarioId}").permitAll()
-			.antMatchers(HttpMethod.PUT, "usuarios/{usuarioId}").permitAll()
-			.antMatchers(HttpMethod.DELETE, "usuarios/{usuarioId}").permitAll()
+		    .antMatchers(HttpMethod.GET, "/").permitAll()			
 			.antMatchers(HttpMethod.GET, "/v2/api-docs").permitAll()
 			.antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
 			.antMatchers(HttpMethod.GET, "/webjars/**").permitAll()
