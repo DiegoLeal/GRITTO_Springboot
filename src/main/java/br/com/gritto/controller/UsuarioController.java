@@ -56,12 +56,12 @@ public class UsuarioController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario adicionar(@Valid @RequestBody Usuario usuario) throws Exception {
+	public Usuario criar(@Valid @RequestBody Usuario usuario) throws Exception {
 		return cadastroUsuario.salvar(usuario);
 	}
 	
 	@PutMapping("/{usuarioId}")
-	public ResponseEntity<Usuario> Atualizar(@Valid @PathVariable Long usuarioId,
+	public ResponseEntity<Usuario> atualizar(@Valid @PathVariable Long usuarioId,
 			@RequestBody Usuario usuario) throws Exception {
 		
 		if (!usuarioRepository.existsById(usuarioId)) {
