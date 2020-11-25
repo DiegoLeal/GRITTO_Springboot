@@ -25,12 +25,12 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService cadastroUsuario;	
 	
-	@GetMapping
+	@GetMapping	
 	public List<Usuario> listar() {
 		return usuarioRepository.findAll();
 	}
 	
-	@GetMapping("{usuarioId}")
+	@GetMapping("{usuarioId}")	
 	public ResponseEntity<Usuario> buscar (@PathVariable Long usuarioId) {
 		Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
 		
@@ -41,13 +41,13 @@ public class UsuarioController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PostMapping
+	@PostMapping	
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario adicionar(@Valid @RequestBody Usuario usuario) throws Exception {
+	public Usuario criar(@Valid @RequestBody Usuario usuario) throws Exception {
 		return cadastroUsuario.salvar(usuario);
 	}
 	
-	@PutMapping("/{usuarioId}")
+	@PutMapping("/{usuarioId}")	
 	public ResponseEntity<Usuario> Atualizar(@Valid @PathVariable Long usuarioId,
 			@RequestBody Usuario usuario) throws Exception {
 		
@@ -61,7 +61,7 @@ public class UsuarioController {
 		return ResponseEntity.ok(usuario);
 	}
 	
-	@DeleteMapping("/{usuarioId}")
+	@DeleteMapping("/{usuarioId}")	
 	public ResponseEntity<Void> remover(@PathVariable Long usuarioId) {
 		if (!usuarioRepository.existsById(usuarioId)) {
 			return ResponseEntity.notFound().build();
