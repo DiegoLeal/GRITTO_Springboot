@@ -25,7 +25,7 @@ public class UsuarioDTO implements Serializable {
 		nome = obj.getNome();
 		rg = obj.getRg();
 		cpf = obj.getCpf();
-		dataNascimento = obj.getDataNascimento();
+		dataNascimento = obj.getDataNascimento().toString();
 		telefone = obj.getTelefone();
 		senha = obj.getSenha();
 		email = obj.getEmail();

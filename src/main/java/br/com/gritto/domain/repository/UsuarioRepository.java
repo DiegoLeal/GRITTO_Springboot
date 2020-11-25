@@ -9,10 +9,10 @@ import br.com.gritto.domain.model.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-	
-	List<Usuario> findByNome(String nome);
+
+	Usuario findOneByEmail(String email);
 	List<Usuario> findByNomeContaining(String nome);
-	Usuario findByEmail(String email); 
+	Usuario findByEmail(String email);
 	Usuario findByCpf(String cpf);
 	Object findByNome(Long id);
 	
