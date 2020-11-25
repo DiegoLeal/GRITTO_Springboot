@@ -10,10 +10,13 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import io.swagger.annotations.ApiModelProperty;
+
 
 @Entity
 public class Usuario {
 	
+	@ApiModelProperty(value = "Código do usuario")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

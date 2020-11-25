@@ -3,6 +3,7 @@ package br.com.gritto.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import br.com.gritto.domain.model.Usuario;
 import br.com.gritto.domain.repository.UsuarioRepository;
 import br.com.gritto.domain.service.UsuarioService;
 
+@CrossOrigin(origins ="*")
 @RestController
 @RequestMapping(value="/usuarios")
 @CrossOrigin(origins = "*")
@@ -52,7 +54,7 @@ public class UsuarioController {
 	
 	@PostMapping	
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario adicionar(@Valid @RequestBody Usuario usuario) throws Exception {
+	public Usuario criar(@Valid @RequestBody Usuario usuario) throws Exception {
 		return cadastroUsuario.salvar(usuario);
 	}
 	

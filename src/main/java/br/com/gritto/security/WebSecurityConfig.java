@@ -1,5 +1,6 @@
 package br.com.gritto.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -18,25 +19,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests()
-			//.antMatchers("/usuarios").permitAll()
+		    .antMatchers(HttpMethod.GET, "/").permitAll()			
+			.antMatchers(HttpMethod.GET, "/v2/api-docs").permitAll()
+			.antMatchers(HttpMethod.GET, "/swagger-ui.html").permitAll()
+			.antMatchers(HttpMethod.GET, "/webjars/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/swagger-resources/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/login").permitAll()
 			.anyRequest().authenticated()
 			.and()
 			
-			// filtra requisições de login
 			.addFilterBefore(new JWTLoginFilter("/login", authenticationManager()),
 	                UsernamePasswordAuthenticationFilter.class)
 			
-			// filtra outras requisições para verificar a presença do JWT no header
 			.addFilterBefore(new JWTAuthenticationFilter(),
 	                UsernamePasswordAuthenticationFilter.class);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Bean
+	@Autowired
     public UserDetailsService userDetailsService() {
 
-        User.UserBuilder users = User.withDefaultPasswordEncoder();
+        @SuppressWarnings("deprecation")
+		User.UserBuilder users = User.withDefaultPasswordEncoder();
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(users.username("user").password("password").roles("USER").build());
         manager.createUser(users.username("admin").password("password").roles("USER", "ADMIN").build());

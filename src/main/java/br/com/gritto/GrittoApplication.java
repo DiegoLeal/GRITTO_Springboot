@@ -9,5 +9,4 @@ public class GrittoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GrittoApplication.class, args);
 	}
-
 }
