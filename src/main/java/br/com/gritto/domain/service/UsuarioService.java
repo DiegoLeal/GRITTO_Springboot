@@ -21,6 +21,11 @@ public class UsuarioService {
 		return UsuarioRepository.save(Usuario);
 	}
 	
+    public Usuario atualizar(Usuario usuario) {
+		
+		return UsuarioRepository.save(usuario);
+	}
+	
 	public void excluir(Long UsuarioId) {
 		UsuarioRepository.deleteById(UsuarioId);
 	}
