@@ -18,65 +18,68 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.com.gritto.config.view.Views;
 import br.com.gritto.domain.model.Usuario;
 import br.com.gritto.domain.repository.UsuarioRepository;
 import br.com.gritto.domain.service.UsuarioService;
 
-
 @RestController
-@RequestMapping(value="/usuarios")
+@RequestMapping(value = "/usuarios")
 public class UsuarioController {
-	
+
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
-	private UsuarioService cadastroUsuario;	
-	
-	@GetMapping	
+	private UsuarioService cadastroUsuario;
+
+	@GetMapping
 	public List<Usuario> listar() {
 		return usuarioRepository.findAll();
 	}
-	
-	@GetMapping("{usuarioId}")	
-	public ResponseEntity<Usuario> buscar (@PathVariable Long usuarioId) {
+
+	@GetMapping("{usuarioId}")
+	public ResponseEntity<Usuario> buscar(@PathVariable Long usuarioId) {
 		Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
-		
+
 		if (usuario.isPresent()) {
 			return ResponseEntity.ok(usuario.get());
 		}
-		
+
 		return ResponseEntity.notFound().build();
 	}
-	
-	@PostMapping	
+
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@JsonView({ Views.List.class })
 	public Usuario criar(@Valid @RequestBody Usuario usuario) throws Exception {
 		return cadastroUsuario.salvar(usuario);
 	}
-	
-	@PutMapping("/{usuarioId}")	
-	public ResponseEntity<Usuario> Atualizar(@Valid @PathVariable Long usuarioId,
-			@RequestBody Usuario usuario) throws Exception {
-		
+
+	@PutMapping("/{usuarioId}")
+	public ResponseEntity<Usuario> Atualizar(@Valid @PathVariable Long usuarioId, @RequestBody Usuario usuario)
+			throws Exception {
+
 		if (!usuarioRepository.existsById(usuarioId)) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		usuario.setId(usuarioId);
 		usuario = cadastroUsuario.salvar(usuario);
-		
+
 		return ResponseEntity.ok(usuario);
 	}
-	
-	@DeleteMapping("/{usuarioId}")	
+
+	@DeleteMapping("/{usuarioId}")
 	public ResponseEntity<Void> remover(@PathVariable Long usuarioId) {
 		if (!usuarioRepository.existsById(usuarioId)) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		cadastroUsuario.excluir(usuarioId);
-		
+
 		return ResponseEntity.noContent().build();
 	}
 

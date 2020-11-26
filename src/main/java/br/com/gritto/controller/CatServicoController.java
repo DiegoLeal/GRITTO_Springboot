@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.com.gritto.config.view.Views;
 import br.com.gritto.domain.model.CatServico;
 import br.com.gritto.domain.repository.CatServicoRepository;
 import br.com.gritto.domain.service.CatServicoService;
@@ -33,11 +36,13 @@ public class CatServicoController {
 	private CatServicoService catServicoService;
 	
 	@GetMapping
+	@JsonView(Views.CatServico.class)
 	public List<CatServico> listar() {
 		return catServicoRepository.findAll();
 	}
 	
 	@GetMapping("/{usuarioId}")
+	@JsonView(Views.CatServico.class)
 	public ResponseEntity<CatServico> buscar(@PathVariable Long usuarioId) {
 		Optional<CatServico> catServico = catServicoRepository.findById(usuarioId);
 		
@@ -50,6 +55,7 @@ public class CatServicoController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
+	@JsonView(Views.CatServico.class)
 	public CatServico criar(@RequestBody CatServico catServico) throws Exception {
 		
 		return catServicoService.criar(catServico);
@@ -57,6 +63,7 @@ public class CatServicoController {
 	}
 	
 	@PutMapping("/{usuarioId}")
+	@JsonView(Views.CatServico.class)
 	public ResponseEntity<CatServico> atualizar(@Valid @PathVariable Long usuarioId,
 			@RequestBody CatServico catServico) {
 		

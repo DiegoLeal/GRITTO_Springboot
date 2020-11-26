@@ -9,6 +9,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.com.gritto.config.view.Views;
+
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,10 +37,12 @@ public class Usuario implements UserDetails {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@JsonView({ Views.List.class, Views.CatServico.class })
 	private Long id;
 	
 	@NotBlank
 	@Size(max = 60)
+	@JsonView({ Views.List.class, Views.CatServico.class })
 	private String nome;	
 	
 	@NotBlank
@@ -63,6 +69,7 @@ public class Usuario implements UserDetails {
 	@NotBlank
 	@Email
 	@Size(max = 255)
+	@JsonView({ Views.List.class })
 	private String email;
 	
 	@NotBlank

@@ -1,6 +1,5 @@
 package br.com.gritto.domain.model;
 
-
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -18,16 +17,10 @@ public class Bairro implements Model {
 
 	private static final long serialVersionUID = 1L;
 
-@Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-  private String nomeBairro;
-
-@Override
-public Long getId() {
-	// TODO Auto-generated method stub
-	return null;
-}
+	private String nomeBairro;
 
 }
