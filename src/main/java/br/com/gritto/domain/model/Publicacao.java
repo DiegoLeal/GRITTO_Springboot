@@ -1,49 +1,53 @@
 package br.com.gritto.domain.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class Publicacao implements Model {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+	private static final long serialVersionUID = -3447556886413066683L;
 
-  @Size(max = 280)
-  private String descricao;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-  @Size(max = 60)
-  private String foto;
+	@Size(max = 280)
+	private String descricao;
 
-  @JoinColumn(name = "usuario_id")
-  @ManyToOne
-  @JsonBackReference
-  private Usuario usuario;
+	@Size(max = 60)
+	private String foto;
 
-//  private Object endereco;
+	@JoinColumn(name = "usuario_id")
+	@ManyToOne
+	@JsonBackReference
+	private Usuario usuario;
 
-//  private Object catServico;
+	private Endereco endereco;
 
-  private Integer numero;
+	private CatServico catServico;
 
-  @Size(max = 45, message = "")
-  private String complemento;
+	private Integer numero;
 
-@Override
-public Long getId() {
-	// TODO Auto-generated method stub
-	return null;
-}
+	@Size(max = 45)
+	private String complemento;
 
 }

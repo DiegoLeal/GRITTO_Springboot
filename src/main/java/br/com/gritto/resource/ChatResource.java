@@ -1,4 +1,4 @@
-package br.com.gritto.domain.resource;
+package br.com.gritto.resource;
 
 import java.io.Serializable;
 
