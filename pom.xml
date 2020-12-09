@@ -49,12 +49,33 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>		    
+	    </dependency>
+	    
+	    <dependency>
+	        <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-config</artifactId>		   
+	    </dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-webmvc</artifactId>		    
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-web</artifactId>		   
+		</dependency>
+		
 		
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -79,13 +100,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.16</version>
+			<artifactId>lombok</artifactId>			
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>6.1.6.Final</version>
+			<artifactId>hibernate-validator</artifactId>			
 		</dependency>	
 						
 		 <dependency>
@@ -108,7 +127,7 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
+            <version>3.10</version>
         </dependency>
 
 	</dependencies>

@@ -30,7 +30,7 @@ public class TokenAuthenticationService {
 		response.getWriter().write(JWT);
 	}
 	
-	static Authentication getAuthentication(HttpServletRequest request) {
+	static Authentication getAuthentication(HttpServletRequest request) {		
 		String token = request.getHeader(HEADER_STRING);
 		
 		if (token != null) {

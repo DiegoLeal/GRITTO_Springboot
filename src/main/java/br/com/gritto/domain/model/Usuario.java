@@ -1,18 +1,5 @@
 package br.com.gritto.domain.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.security.config.core.GrantedAuthorityDefaults;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import com.fasterxml.jackson.annotation.JsonView;
-
-import br.com.gritto.config.view.Views;
-
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
@@ -26,15 +13,34 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonView;
+
+import br.com.gritto.config.view.Views;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode
+@AllArgsConstructor
+@RequiredArgsConstructor
+@ToString
+@Builder
 public class Usuario implements UserDetails {
 	
-	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@JsonView({ Views.List.class, Views.CatServico.class })
@@ -54,8 +60,8 @@ public class Usuario implements UserDetails {
 	@Size(max = 14)
 	private String cpf;
 	
-//	@NotBlank
-//	@Size(max = 10)
+	//@NotBlank
+	//@Size(max = 11)
 	private LocalDate dataNascimento;
 	
 	@NotBlank

@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import br.com.gritto.domain.service.UsuarioService;
 
 @RestController
 @RequestMapping(value = "/usuarios")
+@CrossOrigin(origins = "https://localhost:3000")
 public class UsuarioController {
 
 	@Autowired
@@ -67,7 +69,7 @@ public class UsuarioController {
 		}
 
 		usuario.setId(usuarioId);
-		usuario = cadastroUsuario.salvar(usuario);
+		usuario = cadastroUsuario.atualizar(usuario);
 
 		return ResponseEntity.ok(usuario);
 	}

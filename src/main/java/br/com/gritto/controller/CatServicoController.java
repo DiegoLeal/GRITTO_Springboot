@@ -72,7 +72,7 @@ public class CatServicoController {
 		}
 		
 		catServico.setId(usuarioId);
-		//catServico = catServicoService.salvar(catServico);
+		catServico = catServicoService.salvar(catServico);
 		
 		return ResponseEntity.ok(catServico);
 	}
