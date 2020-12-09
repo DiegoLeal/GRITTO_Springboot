@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.com.gritto.domain.model.Publicacao;
 
 @Repository
-public interface PublicacaoRepository extends JpaRepository<Publicacao, Long> {
+public interface PublicacaoRepository extends JpaRepository<Publicacao, Long> {	
+		
 }

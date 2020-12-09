@@ -1,10 +1,11 @@
 package br.com.gritto.domain.service;
 
-import br.com.gritto.domain.model.Usuario;
-import br.com.gritto.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import br.com.gritto.domain.model.Usuario;
+import br.com.gritto.domain.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {

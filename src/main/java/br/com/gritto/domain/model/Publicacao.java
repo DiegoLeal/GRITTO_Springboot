@@ -43,7 +43,7 @@ public class Publicacao implements Model {
 
 	private Endereco endereco;
 
-	private CatServico catServico;
+	//private CatServico catServico;
 
 	private Integer numero;
 
